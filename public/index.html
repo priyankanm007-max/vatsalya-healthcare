@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f766e" />
+    <title>GramCare Telemedicine</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#home" aria-label="GramCare home">
+          <span class="brand-mark">+</span>
+          <span>
+            <strong data-i18n="brand">GramCare</strong>
+            <small data-i18n="brandTag">Rural telemedicine</small>
+          </span>
+        </a>
+        <nav class="nav" aria-label="Primary">
+          <a href="#doctors" data-i18n="navDoctors">Doctors</a>
+          <a href="#book" data-i18n="navBook">Book</a>
+          <a href="#consult" data-i18n="navConsult">Consult</a>
+          <a href="#emergency" data-i18n="navEmergency">Emergency</a>
+        </nav>
+        <select id="language" aria-label="Select language"></select>
+      </header>
+
+      <main>
+        <section class="hero" id="home">
+          <div class="hero-copy">
+            <p class="eyebrow" data-i18n="heroEyebrow">Low-network care access</p>
+            <h1 data-i18n="heroTitle">Qualified doctors for every village, without the long journey.</h1>
+            <p data-i18n="heroBody">
+              Book online consultations, check real-time doctor availability, receive digital prescriptions, and trigger emergency support from a simple mobile-friendly app.
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="#book" data-i18n="bookNow">Book appointment</a>
+              <a class="button emergency" href="#emergency" data-i18n="emergencyNow">Emergency help</a>
+            </div>
+          </div>
+          <div class="care-panel" aria-label="Live rural health dashboard">
+            <div>
+              <span class="status-dot"></span>
+              <span data-i18n="liveDoctors">Live doctors online</span>
+              <strong id="onlineCount">0</strong>
+            </div>
+            <div>
+              <span data-i18n="avgWait">Average wait</span>
+              <strong>8 min</strong>
+            </div>
+            <div>
+              <span data-i18n="networkMode">Low data mode</span>
+              <strong data-i18n="enabled">Enabled</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="quick-grid" aria-label="Key services">
+          <article>
+            <span>01</span>
+            <strong data-i18n="serviceConsult">Online consultation</strong>
+            <p data-i18n="serviceConsultBody">Audio-first video-ready sessions reduce travel and delays.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <strong data-i18n="servicePrescription">Digital prescription</strong>
+            <p data-i18n="servicePrescriptionBody">Prescription IDs can be shown at local pharmacies.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <strong data-i18n="serviceEmergency">Emergency support</strong>
+            <p data-i18n="serviceEmergencyBody">Alerts route to responders with patient and location details.</p>
+          </article>
+        </section>
+
+        <section class="section" id="doctors">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow" data-i18n="availability">Availability</p>
+              <h2 data-i18n="doctorsTitle">Available doctors</h2>
+            </div>
+            <button class="ghost" id="refreshDoctors" type="button" data-i18n="refresh">Refresh</button>
+          </div>
+          <div id="doctor-list" class="doctor-grid" aria-live="polite"></div>
+        </section>
+
+        <section class="workflow">
+          <article class="panel" id="book">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow" data-i18n="stepOne">Step 1</p>
+                <h2 data-i18n="appointmentTitle">Book appointment</h2>
+              </div>
+            </div>
+            <form id="appointment-form" class="form">
+              <label>
+                <span data-i18n="labelName">Patient name</span>
+                <input type="text" id="patientName" placeholder="Maya Devi" autocomplete="name" required />
+              </label>
+              <label>
+                <span data-i18n="labelPhone">Mobile number</span>
+                <input type="tel" id="phone" placeholder="9876543210" inputmode="numeric" required />
+              </label>
+              <label>
+                <span data-i18n="labelVillage">Village / block</span>
+                <input type="text" id="village" placeholder="Rampur, Sitamarhi" required />
+              </label>
+              <label>
+                <span data-i18n="labelDoctor">Choose doctor</span>
+                <select id="doctorSelect" required></select>
+              </label>
+              <label>
+                <span data-i18n="labelDate">Preferred date</span>
+                <input type="date" id="preferredDate" required />
+              </label>
+              <label>
+                <span data-i18n="labelIssue">Symptoms</span>
+                <textarea id="issue" rows="3" placeholder="Fever and cough for 2 days" required></textarea>
+              </label>
+              <button type="submit" class="button primary" data-i18n="bookButton">Submit request</button>
+            </form>
+            <div id="appointmentMessage" class="message" role="status"></div>
+          </article>
+
+          <article class="panel" id="consult">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow" data-i18n="stepTwo">Step 2</p>
+                <h2 data-i18n="consultTitle">Consultation room</h2>
+              </div>
+            </div>
+            <div class="consult-card">
+              <div class="avatar">DR</div>
+              <div>
+                <strong id="consultDoctor">Select a doctor</strong>
+                <span id="consultSpecialty">General care</span>
+              </div>
+            </div>
+            <div class="network-strip">
+              <span data-i18n="audioFirst">Audio-first mode</span>
+              <span data-i18n="autoRetry">Auto retry on weak signal</span>
+            </div>
+            <div class="consult-actions">
+              <button type="button" class="button primary" id="startAudio" data-i18n="startAudio">Start audio</button>
+              <button type="button" class="button secondary" id="startVideo" data-i18n="startVideo">Start video</button>
+            </div>
+            <div id="consultMessage" class="message" role="status"></div>
+          </article>
+
+          <article class="panel">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow" data-i18n="stepThree">Step 3</p>
+                <h2 data-i18n="prescriptionTitle">Digital prescription</h2>
+              </div>
+            </div>
+            <label class="standalone-field">
+              <span data-i18n="labelAppointmentId">Appointment ID</span>
+              <input type="text" id="appointmentId" placeholder="A1" />
+            </label>
+            <button id="loadPrescriptionButton" class="button secondary" type="button" data-i18n="loadPrescriptionButton">Get prescription</button>
+            <div id="prescriptionResult" class="message prescription" role="status"></div>
+          </article>
+        </section>
+
+        <section class="section appointments">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow" data-i18n="records">Records</p>
+              <h2 data-i18n="appointmentRecords">Appointment tracking</h2>
+            </div>
+          </div>
+          <div id="appointment-list" class="records-list"></div>
+        </section>
+
+        <section class="emergency-band" id="emergency">
+          <div>
+            <p class="eyebrow" data-i18n="urgentCare">Urgent care</p>
+            <h2 data-i18n="emergencyTitle">Emergency healthcare support</h2>
+            <p data-i18n="emergencyBody">Send a fast alert with patient details, phone number, village, and symptoms to the nearest response desk.</p>
+          </div>
+          <form id="emergency-form" class="form emergency-form">
+            <label>
+              <span data-i18n="labelEName">Patient name</span>
+              <input type="text" id="emergencyName" placeholder="Ravi Kumar" required />
+            </label>
+            <label>
+              <span data-i18n="labelEPhone">Mobile number</span>
+              <input type="tel" id="emergencyPhone" placeholder="9876543210" inputmode="numeric" required />
+            </label>
+            <label>
+              <span data-i18n="labelLocation">Location</span>
+              <input type="text" id="location" placeholder="Village or landmark" required />
+            </label>
+            <label>
+              <span data-i18n="labelEIssue">Emergency issue</span>
+              <textarea id="emergencyIssue" rows="3" placeholder="Severe chest pain" required></textarea>
+            </label>
+            <button type="submit" class="button emergency" data-i18n="emergencyButton">Send alert</button>
+            <div id="emergencyMessage" class="message" role="status"></div>
+          </form>
+        </section>
+      </main>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

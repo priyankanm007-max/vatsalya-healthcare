@@ -1,0 +1,14 @@
+{
+  "name": "rural-telemed",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Smart telemedicine platform for rural healthcare access.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2"
+  }
+}
