@@ -13,7 +13,7 @@ powershell -ExecutionPolicy Bypass -File .\start-server.ps1
 Then open:
 
 ```text
-http://localhost:3000
+http://localhost:5174
 ```
 
 ## Optional Node Server
@@ -25,7 +25,7 @@ npm install
 npm start
 ```
 
-Then open `http://localhost:3000`.
+Then open `http://localhost:5174`.
 
 ## Features
 
