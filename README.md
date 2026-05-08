@@ -1,4 +1,4 @@
-# GramCare Rural Telemedicine
+# Vatsalya Rural Telemedicine
 
 Smart telemedicine application for rural healthcare access. It connects rural patients with qualified doctors through live doctor availability, appointment scheduling, consultation actions, digital prescriptions, multilingual UI, low-data design, and emergency healthcare alerts.
 
